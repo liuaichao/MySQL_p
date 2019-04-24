@@ -9,8 +9,8 @@ import time
 USER = UserAgent()
 
 #得到书名，内容。。。
-def get_page_url(url):
-    USER = UserAgent()
+def get_page_url(url,USER):
+
     is_next = True
     headers = {
         'Referer':'http://www.bookschina.com/',
@@ -27,6 +27,8 @@ def get_page_url(url):
     author = html.xpath('//div[@class="bookList"]/ul/li/div[@class="infor"]/div[@class="otherInfor"]/a[1]/text()')
     #出版社
     publisher = html.xpath('//div[@class="bookList"]/ul/li/div[@class="infor"]/div[@class="otherInfor"]/a[2]/text()')
+    if len(title) != len(publisher):
+        return
     #内容
     recolagu = re.findall(r'<p class="recoLagu">([\s\S]*?)</p>',req.text)
     #购买链接
@@ -61,7 +63,7 @@ def get_page_url(url):
     if is_next == False:
         return
 
-    get_page_url(next_page)
+    get_page_url(next_page,USER)
 
 
 if __name__ == '__main__':
@@ -77,8 +79,23 @@ if __name__ == '__main__':
     for i in range(len(urls)):
         urls[i] = 'http://www.bookschina.com' + urls[i]
     for i in range(len(urls)):
-        if i>=15:
+        try:
+            USER = UserAgent()
+        except:
+            time.sleep(5)
             try:
-                get_page_url(urls[i])
+                USER = UserAgent()
             except:
-                get_page_url(urls[i])
+                time.sleep(3)
+                try:
+                    USER = UserAgent()
+                except:
+                    time.sleep(2)
+                    USER = UserAgent()
+        if i>=107:
+            print(i)
+            print(urls[i])
+            try:
+                get_page_url(urls[i],USER)
+            except:
+                get_page_url(urls[i],USER)
