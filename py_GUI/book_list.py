@@ -13,7 +13,16 @@ class Book():
             datas.append(data[0][0]+'       '+data[0][1])
         datas = tuple(datas)
         return datas
+    def type_book_list(self,type_name):
+        datas = list()
+        a = Mysql_demo()
+        sql = 'select title,author from book where drop_type="{0}";'.format(type_name)
+        data = a.search(sql)
+        for i in range(len(data)):
+            datas.append(data[i][0]+'       '+data[i][1])
+        datas = tuple(datas)
+        return datas
 
 if __name__ == '__main__':
     a = Book()
-    a.first_book_list()
+    print(a.type_book_list('中国政治'))

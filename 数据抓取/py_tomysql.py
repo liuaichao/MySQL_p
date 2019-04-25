@@ -55,7 +55,15 @@ def get_page_url(url,USER):
     try:
         mysql = Mysql_demo()
     except:
-        mysql = Mysql_demo()
+        time.sleep(4)
+        try:
+            mysql = Mysql_demo()
+        except:
+            time.sleep(4)
+            try:
+                mysql = Mysql_demo()
+            except:
+                mysql = Mysql_demo()
     for i in range(len(title)):
         sql = 'insert into book(title,author,publisher,recolagu,href,drop_type) values ("{0}","{1}","{2}","{3}","{4}","{5}")'.format(title[i],author[i],publisher[i],recolagu[i],href[i],drop_type[0])
         mysql.insert(sql)
@@ -83,16 +91,10 @@ if __name__ == '__main__':
             USER = UserAgent()
         except:
             time.sleep(5)
-            try:
-                USER = UserAgent()
-            except:
-                time.sleep(3)
-                try:
-                    USER = UserAgent()
-                except:
-                    time.sleep(2)
-                    USER = UserAgent()
-        if i>=107:
+            USER = UserAgent()
+
+
+        if i>=230:
             print(i)
             print(urls[i])
             try:

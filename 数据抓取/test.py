@@ -12,8 +12,11 @@ headers = {
 }
 req = requests.get('http://www.bookschina.com/',headers=headers)
 html = etree.HTML(req.text)
-urls = html.xpath('//p[@class="mcate-item-bd"]//a/@href')
+urls = html.xpath('//p[@class="mcate-item-bd"]//a/text()')
+data = html.xpath('//h3[@class="mcate-item-hd"]/span/text()')
 print(len(urls))
+print(len(data))
+print(data)
 for i in range(len(urls)):
     if urls[i] =='/kinder/37150000/':
         print(i)

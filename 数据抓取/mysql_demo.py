@@ -26,4 +26,17 @@ class Mysql_demo(object):
             self.conn.commit()
         except:
             self.conn.rollback()
-    #数据库
+    #数据库更新操作
+    def update(self,sql):
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except:
+            self.conn.rollback()
+    #删除数据
+    def delete(self,sql):
+        try:
+            self.cursor.execute(sql)
+            self.conn.commit()
+        except:
+            self.conn.rollback()
