@@ -65,7 +65,7 @@ def get_page_url(url,USER):
             except:
                 mysql = Mysql_demo()
     for i in range(len(title)):
-        sql = 'insert into book(title,author,publisher,recolagu,href,drop_type) values ("{0}","{1}","{2}","{3}","{4}","{5}")'.format(title[i],author[i],publisher[i],recolagu[i],href[i],drop_type[0])
+        sql = 'insert into book(title,author,publisher,recolagu,href,drop_type) values ("{0}","{1}","{2}","{3}","{4}","{5}");'.format(title[i],author[i],publisher[i],recolagu[i],href[i],drop_type[0])
         mysql.insert(sql)
 
     if is_next == False:

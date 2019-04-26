@@ -10,9 +10,13 @@ import pymysql
 import datetime
 from mysql_demo import Mysql_demo
 class Book_det():
-    def __init__(self,acount,name):
+    def __init__(self,acount,name,book_name,drop_type):
         self.acount = acount
         self.name = name[0][0]
+        self.book_name = book_name
+        a = Mysql_demo()
+        sql = 'insert into book_dian(book_name,drop_type) values ("{0}","{1}")'.format(self.book_name,drop_type)
+        a.insert(sql)
     def start(self,book_name):
         self.base = tkinter.Toplevel()
         self.base.geometry("600x400")
@@ -84,6 +88,10 @@ class Book_det():
             sql = 'update user set borrow={0} where id="{1}";'.format(data-1,self.acount)
             self.my_g.update(sql)
             self.hnn = tkinter.messagebox.showinfo('提示', '借书成功,请在{0}之前归还'.format(time_r))
+            #修改书的剩余量
+            my = Mysql_demo()
+            sql = 'update book set re_qu=re_qu-1 where title={0};'.format(self.book_name)
+            my.update(sql)
             self.base.destroy()
         else:
             self.hnt = tkinter.messagebox.showinfo('提示', '您借书已超过上限,无法再次借书！')

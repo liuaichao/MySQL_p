@@ -13,6 +13,7 @@ class Book():
             datas.append(data[0][0]+'       '+data[0][1])
         datas = tuple(datas)
         return datas
+    #首页类型返回
     def type_book_list(self,type_name):
         datas = list()
         a = Mysql_demo()
@@ -22,7 +23,27 @@ class Book():
             datas.append(data[i][0]+'       '+data[i][1])
         datas = tuple(datas)
         return datas
+    #管理员的用户管理返回
+    def root_user(self):
+        datas = list()
+        a = Mysql_demo()
+        sql = 'select id,borrow from user;'
+        data = a.search(sql)
+        for i in range(len(data)):
+            datas.append(data[i][0]+'    '+str(data[i][1]))
+        datas = tuple(datas)
+        return datas
+    #管理员借阅表
+    def root_bor(self):
+        datas = list()
+        a = Mysql_demo()
+        sql = 'select acount,b_date,book_name from bor_book;'
+        data = a.search(sql)
+        for i in range(len(data)):
+            datas.append(data[i][0] + ' '+data[i][1]+' ' + str(data[i][2]))
+        datas = tuple(datas)
+        return datas
 
 if __name__ == '__main__':
     a = Book()
-    print(a.type_book_list('中国政治'))
+    print(a.root_bor())
