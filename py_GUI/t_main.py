@@ -73,13 +73,16 @@ class MN():
 
     # 事件绑定
     def print_item(self,event):
-        self.book_name = (self.lb.get(self.lb.curselection())).split('       ')[0]
-        #根据book_name查找
-        self.my_s = Mysql_demo()
-        self.sql_s = 'select title,author,publisher,recolagu,href,drop_type from book where title="{0}";'.format(self.book_name)
-        self.book_data = self.my_s.search(self.sql_s)
-        self.bde = Book_det(self.id, self.name,self.book_name,self.book_data[0][5])
-        self.bde.start(self.book_data)
+        try:
+            self.book_name = (self.lb.get(self.lb.curselection())).split('       ')[0]
+            #根据book_name查找
+            self.my_s = Mysql_demo()
+            self.sql_s = 'select title,author,publisher,recolagu,href,drop_type from book where title="{0}";'.format(self.book_name)
+            self.book_data = self.my_s.search(self.sql_s)
+            self.bde = Book_det(self.id, self.name,self.book_name,self.book_data[0][5])
+            self.bde.start(self.book_data)
+        except:
+            submit_warn = tkinter.messagebox.showinfo('警告', '请先登录！')
     #类型点击响应方法
     def type_item(self,event):
         self.type_name = self.lbs.get(self.lbs.curselection())
